@@ -110,8 +110,12 @@ function useDeleteAccount(productId: number) {
 
 export default function Products() {
   const { t, lang } = useLanguage();
-  const { data: products = [], isLoading } = useProducts();
-  const { data: categories = [] } = useCategories();
+  const { data: rawProducts = [], isLoading } = useProducts();
+  const { data: rawCategories = [] } = useCategories();
+
+  // Defensive: ensure data is always an array even if API returns non-array
+  const products = Array.isArray(rawProducts) ? rawProducts : [];
+  const categories = Array.isArray(rawCategories) ? rawCategories : [];
   const createProduct = useCreateProduct();
   const updateProduct = useUpdateProduct();
   const deleteProduct = useDeleteProduct();

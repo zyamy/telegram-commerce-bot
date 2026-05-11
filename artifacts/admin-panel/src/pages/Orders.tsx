@@ -22,7 +22,10 @@ export default function Orders() {
   const { t } = useLanguage();
   const [filter, setFilter] = useState<string>("all");
   const [search, setSearch] = useState("");
-  const { data: allOrders = [], isLoading } = useOrders(filter !== "all" ? { status: filter } : undefined);
+  const { data: rawOrders = [], isLoading } = useOrders(filter !== "all" ? { status: filter } : undefined);
+
+  // Defensive: ensure data is always an array even if API returns non-array
+  const allOrders = Array.isArray(rawOrders) ? rawOrders : [];
 
   const STATUS_MAP: Record<string, { label: string; color: string }> = {
     pending_payment: { label: t("status_pending_payment"), color: "bg-secondary text-muted-foreground border-white/10" },
