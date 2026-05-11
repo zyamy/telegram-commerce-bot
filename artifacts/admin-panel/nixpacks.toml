@@ -1,17 +1,18 @@
-# Railway Root Directory = artifacts/admin-panel
-# Railway clones the full repo, then sets CWD to this subfolder.
-# We need to go back to repo root for pnpm workspace install.
-
 [phases.setup]
 nixPkgs = ["nodejs_22", "pnpm"]
 
 [phases.install]
+dependsOn = ["setup"]
 cmds = [
   "cd ../.. && rm -f pnpm-lock.yaml && pnpm install --no-frozen-lockfile --ignore-scripts"
 ]
 
 [phases.build]
+dependsOn = ["install"]
 cmds = ["cd ../.. && pnpm --filter @workspace/admin-panel run build"]
 
 [start]
 cmd = "node server.mjs"
+
+[variables]
+NIXPACKS_PATH = "/app/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
