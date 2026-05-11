@@ -1,0 +1,7 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "pnpm --filter @workspace/admin-panel run start"
+restartPolicyType = "always"
+healthcheckPath = "/"

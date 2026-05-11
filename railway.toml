@@ -1,0 +1,6 @@
+[build]
+builder = "nixpacks"
+
+[deploy]
+startCommand = "node artifacts/api-server/dist/index.cjs"
+restartPolicyType = "always"
