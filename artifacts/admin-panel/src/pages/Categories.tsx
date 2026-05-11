@@ -129,7 +129,9 @@ function CategoryIcon({ logoUrl, emoji, size = "md" }: { logoUrl?: string | null
 
 export default function Categories() {
   const { t, lang } = useLanguage();
-  const { data: categories = [], isLoading } = useCategories();
+  const { data: rawCategories = [], isLoading } = useCategories();
+  // Defensive: ensure data is always an array even if API returns non-array
+  const categories = Array.isArray(rawCategories) ? rawCategories : [];
   const qc = useQueryClient();
   const { toast } = useToast();
   const [isDialogOpen, setIsDialogOpen] = useState(false);

@@ -10,8 +10,12 @@ import { useLanguage } from "@/lib/i18n";
 
 export default function Dashboard() {
   const { t } = useLanguage();
-  const { data: orders = [], isLoading } = useOrders();
-  const { data: products = [] } = useProducts();
+  const { data: rawOrders = [], isLoading } = useOrders();
+  const { data: rawProducts = [] } = useProducts();
+
+  // Defensive: ensure data is always an array even if API returns non-array
+  const orders = Array.isArray(rawOrders) ? rawOrders : [];
+  const products = Array.isArray(rawProducts) ? rawProducts : [];
 
   // Build cost price lookup: productId -> costPrice
   const costPriceMap = (products as any[]).reduce((acc, p) => {
