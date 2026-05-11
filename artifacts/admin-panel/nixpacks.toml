@@ -6,12 +6,17 @@
 nixPkgs = ["nodejs_22", "pnpm"]
 
 [phases.install]
+dependsOn = ["setup"]
 cmds = [
   "cd ../.. && rm -f pnpm-lock.yaml && pnpm install --no-frozen-lockfile --ignore-scripts"
 ]
 
 [phases.build]
+dependsOn = ["install"]
 cmds = ["cd ../.. && pnpm --filter @workspace/admin-panel run build"]
 
 [start]
 cmd = "node server.mjs"
+
+[variables]
+NIXPACKS_PATH = "/app/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
