@@ -14,8 +14,10 @@ Pastikan folder `Telegram-Commerce-Bot` ada di GitHub repo anda.
 - **Settings → Service → Root Directory** = `artifacts/admin-panel`
 - Railway akan auto-detect `nixpacks.toml` & `railway.toml` dalam folder ini.
 
-> Nota: pnpm workspace tetap berfungsi sebab nixpacks install dari root repo. Railway akan `cd` ke root sebelum jalankan command (`pnpm --filter @workspace/admin-panel ...`).
-> Kalau monorepo install gagal, tukar **Root Directory** kembali ke repo root dan biar `railway.toml` di root handle build.
+> **PENTING:** Railway clone seluruh repo walaupun Root Directory set ke subfolder.
+> `nixpacks.toml` akan `cd ../..` ke repo root untuk `pnpm install` supaya
+> workspace dependency (`@workspace/api-client-react`) dapat di-resolve.
+> Build output tetap masuk `artifacts/admin-panel/dist/public`.
 
 ## 4. Environment Variables
 Tambah dalam **Variables**:
@@ -29,8 +31,8 @@ Tambah dalam **Variables**:
 
 ## 5. Build & Start
 Sudah dikonfigurasi automatik:
-- **Build**: `pnpm --filter @workspace/admin-panel run build`
-- **Start**: `pnpm --filter @workspace/admin-panel run start` → `node server.mjs`
+- **Build**: `cd ../.. && pnpm --filter @workspace/admin-panel run build` (dari repo root)
+- **Start**: `node server.mjs`
 
 `server.mjs` ialah static file server (zero-dependency) yang serve `dist/public` dengan SPA fallback ke `index.html`.
 

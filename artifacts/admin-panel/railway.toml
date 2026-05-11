@@ -2,6 +2,6 @@
 builder = "nixpacks"
 
 [deploy]
-startCommand = "pnpm --filter @workspace/admin-panel run start"
+startCommand = "node server.mjs"
 restartPolicyType = "always"
 healthcheckPath = "/"
