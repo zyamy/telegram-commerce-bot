@@ -1,7 +1,6 @@
 [build]
-builder = "DOCKERFILE"
-dockerfilePath = "Dockerfile"
+builder = "nixpacks"
 
 [deploy]
-startCommand = "pnpm --filter @workspace/mockup-sandbox start"
+startCommand = "pnpm --filter @workspace/api-server run start"
 restartPolicyType = "ON_FAILURE"
