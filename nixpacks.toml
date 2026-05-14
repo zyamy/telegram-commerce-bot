@@ -1,7 +1,6 @@
 [variables]
 NIXPACKS_NODE_VERSION = "22"
 NODE_VERSION = "22.14.0"
-NIXPACKS_PATH = "/app/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 
 [phases.setup]
 nixPkgs = ["nodejs_22", "pnpm"]
