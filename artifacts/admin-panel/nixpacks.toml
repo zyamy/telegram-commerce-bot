@@ -14,6 +14,3 @@ cmds = ["pnpm --filter @workspace/admin-panel run build"]
 [start]
 cmd = "cd artifacts/admin-panel && node server.mjs"
 
-[variables]
-NIXPACKS_PATH = "/app/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-
